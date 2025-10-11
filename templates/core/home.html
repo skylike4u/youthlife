@@ -1,0 +1,246 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<!-- 메인 이미지 섹션 -->
+<section class="main">
+  <div class="main-container">
+    <div class="inner">
+      <div class="title-container">
+        <div class="title">부산청년들의 삶의 이야기를 기록합니다.</div>
+
+        <div class="message">
+          유익한 삶의 정보와<br />
+          다양한 청년의 이야기를 담아<br />
+          당신의 일상에 영감을 주고자 합니다.<br />
+          <a href="#" target="_blank">
+            <div class="news">최신 소식: 뉴스레터 [클릭]</div></a
+          >
+          <br />
+          <a href="https://young.busan.go.kr/bycenter/index.nm" target="_blank"
+            ><button
+              type="button"
+              class="btn btn-danger"
+              style="padding: 4px 8px"
+            >
+              부산청년센터 홈페이지
+            </button></a
+          >
+          <a href="https://www.instagram.com/youthcenterbusan/" target="_blank"
+            ><button
+              type="button"
+              class="btn btn-primary"
+              style="padding: 4px 8px"
+            >
+              부산청년센터 인스타그램
+            </button></a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="inner">
+    <div class="skill-container">
+      <div class="skill">
+        <i class="fab fa-python skill-icon python-style"></i>
+        <div class="skill-title">
+          <div class="skill-name">업무 자동화</div>
+          <div class="skill-usage">크롤링/자동매매</div>
+        </div>
+      </div>
+      <div class="skill">
+        <i class="far fa-chart-bar skill-icon analysis-style"></i>
+        <div class="skill-title">
+          <div class="skill-name">데이터 분석</div>
+          <div class="skill-usage">데이터 분석/SQL</div>
+        </div>
+      </div>
+      <div class="skill">
+        <i class="fab fa-app-store-ios skill-icon ai-style"></i>
+        <div class="skill-title">
+          <div class="skill-name">AI</div>
+          <div class="skill-usage">인공지능 활용</div>
+        </div>
+      </div>
+      <div class="skill">
+        <i class="fab fa-vuejs skill-icon vue-style"></i>
+        <div class="skill-title">
+          <div class="skill-name">풀스택</div>
+          <div class="skill-usage">웹/앱 서비스</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="inner">
+    <div class="roadmap-container">
+      <div class="roadmap-title-container">
+        <div class="roadmap-title">주요 블로그 글</div>
+        <div class="arrow-container">
+          <i class="fas fa-chevron-circle-left slide-prev"></i>
+          <i class="fas fa-chevron-circle-right slide-next"></i>
+        </div>
+      </div>
+      <!-- HTML5 에서는 태그에 확장처리를 위한 속성으로 data-* 속성 추가
+            data-변수이름=변수값 으로 정의하고, JS 등에서 활용 가능
+          -->
+      <ul class="class-list" data-position="0">
+        <a href="#" target="_blank">
+          <li class="class-card">
+            <img
+              src="{% static '/images/article1.jpg' %}"
+              alt="newjeans"
+              class="class-image"
+            />
+            <div class="class-container">
+              <div class="class-skill">
+                <div class="class-type">How we work</div>
+                <div class="class-format">블로그</div>
+              </div>
+              <div class="class-desc">
+                <div class="class-title">어떻게 일하는 가</div>
+                <div class="class-detail">
+                  변화하는 세상에 맞춰 성장하는 전략
+                </div>
+              </div>
+            </div>
+          </li>
+        </a>
+        <a href="#" target="_blank">
+          <li class="class-card">
+            <img
+              src="{% static '/images/article2.jpg' %}"
+              alt="How we communicate"
+              class="class-image"
+            />
+            <div class="class-container">
+              <div class="class-skill">
+                <div class="class-type">소통방법</div>
+                <div class="class-format">블로그</div>
+              </div>
+              <div class="class-desc">
+                <div class="class-title">청년들의 성장스토리</div>
+                <div class="class-detail">Students, Always.</div>
+              </div>
+            </div>
+          </li>
+        </a>
+        <a href="#" target="_blank">
+          <li class="class-card">
+            <img
+              src="{% static '/images/article3.jpg' %}"
+              alt="테스트 블로그"
+              class="class-image"
+            />
+            <div class="class-container">
+              <div class="class-skill">
+                <div class="class-type">학습방법</div>
+                <div class="class-format">블로그</div>
+              </div>
+              <div class="class-desc">
+                <div class="class-title">블로그 소개</div>
+                <div class="class-detail">블로그 메뉴 소개</div>
+              </div>
+            </div>
+          </li>
+        </a>
+        <a href="#" target="_blank">
+          <li class="class-card">
+            <img
+              src="{% static '/images/article4.jpg' %}"
+              alt="일잘알 성장전략"
+              class="class-image"
+            />
+            <div class="class-container">
+              <div class="class-skill">
+                <div class="class-type">학습방법</div>
+                <div class="class-format">블로그</div>
+              </div>
+              <div class="class-desc">
+                <div class="class-title">혹시 취업정보 잘 모르겠다면?</div>
+                <div class="class-detail">어떤 직장이 좋은지 궁금하다면</div>
+              </div>
+            </div>
+          </li>
+        </a>
+        <a href="#" target="_blank">
+          <li class="class-card">
+            <img
+              src="{% static '/images/article5.jpg' %}"
+              alt="블로그"
+              class="class-image"
+            />
+            <div class="class-container">
+              <div class="class-skill">
+                <div class="class-type">오늘 당신의 일상을</div>
+                <div class="class-format">기록합니다</div>
+              </div>
+              <div class="class-desc">
+                <div class="class-title">사소한 일상에 행복을 찾아</div>
+                <div class="class-detail">남과 비교말고 당신을 알아가세요</div>
+              </div>
+            </div>
+          </li>
+        </a>
+      </ul>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="inner">
+    <div class="roadmap-container">
+      <div class="roadmap-title-container">
+        <div class="roadmap-title">
+          알수 없는 미래
+          <span class="roadmap-desc">걱정말고, 오늘 한걸음부터 시작하세요</span>
+        </div>
+        <div class="arrow-container">
+          <i class="fas fa-chevron-circle-left slide-prev"></i>
+          <i class="fas fa-chevron-circle-right slide-next"></i>
+        </div>
+      </div>
+      <!-- HTML5 에서는 태그에 확장처리를 위한 속성으로 data-* 속성 추가
+            data-변수이름=변수값 으로 정의하고, JS 등에서 활용 가능
+          -->
+      <ul class="class-list" data-position="0">
+        <a href="#" target="_blank">
+          <li class="class-card">
+            <img src="#" alt="인생 클래스 먹방 클래스" class="class-image" />
+            <div class="class-container">
+              <div class="class-skill">
+                <div class="class-type">챗지피티</div>
+                <div class="class-format">온라인 강의</div>
+              </div>
+              <div class="class-desc">
+                <div class="class-title">인생학교 클래스</div>
+                <div class="class-detail">
+                  주식, 부동산, 결혼, 연애, 취미, 커뮤니티까지
+                </div>
+              </div>
+            </div>
+          </li>
+        </a>
+        <a href="#" target="_blank">
+          <li class="class-card">
+            <img src="#" alt="최고 웹사이트" class="class-image" />
+            <div class="class-container">
+              <div class="class-skill">
+                <div class="class-type">기분좋아지는 사이트</div>
+                <div class="class-format">온라인 강의</div>
+              </div>
+              <div class="class-desc">
+                <div class="class-title">오늘이</div>
+                <div class="class-detail">
+                  당신의 행복한 인생의 첫걸음이 될거에요
+                </div>
+              </div>
+            </div>
+          </li>
+        </a>
+      </ul>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

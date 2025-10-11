@@ -1,0 +1,108 @@
+{% load static %}
+
+<header>
+  <div class="inner">
+    <a href="/" class="logo" style="margin: 0 auto">
+      <img
+        src="{% static '/images/logo.png' %}"
+        alt="logo"
+        style="height: 100px; width: 200px"
+      />
+    </a>
+
+    <div class="sub-menu">
+      <ul class="menu">
+        {% if not user.is_authenticated %}
+        <li>
+          <a href="{% url 'users:login' %}?next={{ request.path }}">LOG In</a>
+        </li>
+        <li>
+          <a href="{% url 'users:signup' %}">SIGN Up</a>
+        </li>
+        {% else %}
+        <li>
+          <a href="{% url 'users:detail' pk=user.pk %}">MY PAGE</a>
+        </li>
+        <li>
+          <a href="{% url 'users:logout' %}?next={{ request.path }}">LOG OUT</a>
+        </li>
+        {% endif %}
+        <li>
+          <a href="#">SUBSCRIPTION</a>
+        </li>
+        <li>
+          <a href="#">ABOUT US</a>
+        </li>
+        <li>
+          <a href="javascript:void(0);">Find a Youth place</a>
+        </li>
+      </ul>
+      <div class="search">
+        <input type="text" />
+        <span class="material-icons">search</span>
+      </div>
+    </div>
+
+    <ul class="main-menu">
+      <li class="item">
+        <div class="item__name">
+          <a href="javascript:void(0);">DASHBOARD</a>
+        </div>
+        <div class="item__contents"></div>
+      </li>
+      <li class="item">
+        <div class="item__name">
+          <a href="{% url 'search:search' %}">NEWS</a>
+        </div>
+        <div class="item__contents"></div>
+      </li>
+      <li class="item">
+        <div class="item__name">
+          <a href="{% url 'articles:list' %}">ARTICLES</a>
+        </div>
+        <div class="item__contents"></div>
+      </li>
+      <li class="item">
+        <div class="item__name">
+          <a href="{% url 'blogs:list' %}">LIFESTYLE</a>
+        </div>
+        <div class="item__contents"></div>
+      </li>
+      <li class="item">
+        <div class="item__name">COMMUNITY</div>
+        <div class="item__contents"></div>
+      </li>
+      <li class="item">
+        <div class="item__name">
+          <a href="{% url 'projects:list' %}">PROJECTS</a>
+        </div>
+        <!-- ARCHIVE -->
+        <div class="item__contents"></div>
+      </li>
+      <li class="item">
+        <div class="item__name">
+          <a href="">Videos</a>
+        </div>
+        <div class="item__contents"></div>
+      </li>
+      <li class="item">
+        <div class="item__name">PEOPLE</div>
+        <div class="item__contents"></div>
+      </li>
+      <li class="item">
+        <div class="item__name">STAFF ONLY</div>
+        <div class="item__contents"></div>
+      </li>
+    </ul>
+  </div>
+
+  <!--BADGES-->
+  <!-- <div class="badges">
+        <div class="badge">
+            <img src="{% static '/images/badge1.jpg' %}" alt="Badge" />
+        </div>
+        <div class="badge">
+            <img src="{% static '/images/badge2.png' %}" alt="Badge" />
+        </div>
+    </div> -->
+</header>

@@ -1,0 +1,64 @@
+{% extends 'base.html' %} 
+<!-- {% load bootstrap4 %} -->
+{% load static %}
+
+{% block content %}
+
+<style>
+
+    .container {
+        padding: 0;
+        margin: 0, auto;
+    }
+    
+
+    .container div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 1rem;
+        width: 8rem;
+        height: 8rem;
+        }
+
+    .container img {
+        width: 7rem;
+        height: 7rem;
+        object-fit: cover;
+        border-radius: 1rem;
+    }
+        
+          
+</style>
+
+    {% if project_list %}
+    <div class="inner"style="margin-top:120px;">
+        <div class="container">
+            {% for project in project_list %}
+            <a href="{% url 'projects:detail' pk=project.pk %}">
+              {% include 'partials/card_project.html' with project=project %}
+            </a>
+            {% endfor %}
+        </div>
+          <!-- (매직그리드 라이브러리 활용) 스크립트에서 src도 연결해주어야함 -->
+          <script src="{% static 'js/magicgrid.js' %}" ></script>
+    {% else %}
+        <div style="text-align:center;">
+            <h1>No Project Yet!</h1>
+        </div>
+    </div>
+    {% endif %}
+    
+    
+
+    {% include 'partials/pagination.html' with page_obj=page_obj %}
+
+
+    <div style="text-align:center;">
+        <a href="{% url 'projects:create' %}" class="btn btn-dark rounded-pill mt-3 mb-3 px-3">
+            Create Project
+        </a>
+    </div>
+
+    
+{% endblock %}

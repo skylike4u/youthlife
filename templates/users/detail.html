@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="margin-top: 120px;">
+    <div style="text-align:center; max-width: 500px; margin: 4rem auto;">
+
+        <!-- target_user의 profile이 존재하면, nickname으로 보여준다(보안문제) -->
+        {% if target_user.profile %}
+        <div style="display: flex; justify-content: center;" >
+          <img src="{{ target_user.profile.image.url }}" alt="my_profile_image" style="height: 12rem; width: 12rem; border-radius: 20rem; margin-bottom: 2rem; object-fit: cover;">
+        </div>
+        
+        <h2 style="font-family: NanumSquareB;">
+          {{ target_user.profile.nickname }}
+          {% if target_user == user %}
+            <a class="material-icons"
+            style="box-shadow: 0 0 4px #ccc; border-radius: 10rem; padding: .4rem;"
+            href="{% url 'profiles:update' pk=target_user.profile.pk %}">
+              edit
+            </a>
+          </h2>
+          {% endif %}
+        
+          <!-- 대화명도 적어줌 -->
+        <h5 style="margin-bottom: 3rem;">
+            {{ target_user.profile.message }}
+          </h5>
+      {% else %}
+        {% if target_user == user %}
+        <a href="{% url 'profiles:create' %}">
+          <h2 style="font-family: NanumSquareB;">
+            Create Profile
+          </h2>
+        </a>
+        {% else %}
+        <h2>
+          닉네임 미설정
+        </h2>
+        {% endif %}
+      {% endif %}
+  
+  
+  
+      <!-- target_user라는 이 페이지 주인의 user object를 얻는다. target_user와 지금 접속한 user가 같다면 이 링크를 보여주게 할거다 -->
+      {% if target_user == user %}
+      <a class="material-icons" style="box-shadow: 0 0 4px #ccc; border-radius: 10rem; padding: .4rem;"
+       href="{% url 'users:update' pk=user.pk %}">
+          settings
+      </a>
+      <a class="material-icons" style="box-shadow: 0 0 4px #fcc; border-radius: 10rem; padding: .4rem;"
+       href="{% url 'users:delete' pk=user.pk %}">
+        delete_forever
+      </a>
+      {% endif %}
+  
+    </div>
+  
+    <div>
+      
+      <!-- with 구문을 이용해서 list_fragment.html 안에 있었던 article_list 현재 있는 object_list 동기화 시켜준다 -->
+    {% include 'partials/list_fragment.html' with article_list=object_list %}
+  
+    </div>
+  
+  </div>
+  
+  {% endblock %}
+
+

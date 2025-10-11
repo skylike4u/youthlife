@@ -1,0 +1,130 @@
+{% extends 'base.html' %} {% load bootstrap4 %} {% block content %}
+
+<div class="inner" style="margin-top: 120px; text-align: center">
+  <div class="text-right">
+    <a
+      href="https://help.naver.com/service/5626/contents/959?lang=ko"
+      target="_blank"
+      >네이버-상세검색 활용방법</a
+    >
+  </div>
+
+  <div class="mb-4">
+    <h1>&#x1f50e; 뉴스기사 검색</h1>
+    <!-- Display total count -->
+    <p class="text-muted">
+      Tip. 정확한 검색을 위해 검색어를 " "(따옴표)로 감싸주세요(예.
+      "부산경제진흥원")
+    </p>
+  </div>
+
+  <!-- 검색 폼 -->
+  <div class="row justify-content-center" style="text-align: center">
+    <div class="container" style="width: 500px">
+      <form method="get" action="">
+        <!-- 폼 필드를 렌더링 {{ form.as_p }} 써도 됨 -->
+        {% bootstrap_form form %}
+
+        <button type="submit" class="btn btn-dark rounded-pill">Search</button>
+        <!-- 검색 버튼 -->
+      </form>
+    </div>
+  </div>
+
+  <!-- 검색 결과가 있을 경우 -->
+  {% if data %}
+  <div class="mt-5">
+    <h3 class="text-center mb-4">News 검색결과</h3>
+
+    <!-- Button to download results as Excel -->
+    <div class="text-right mb-3">
+      <a
+        href="{% url 'search:download' %}?query={{ request.GET.query }}"
+        class="btn btn-success"
+        >Download as Excel</a
+      >
+    </div>
+
+    <div class="list-group">
+      {% for item in data %}
+      <!-- Search result item card -->
+      <div
+        class="list-group-item list-group-item-action mb-3 shadow-sm rounded position-relative"
+      >
+        <h5 class="mb-2"><strong>{{ item.title|safe }}</strong></h5>
+        <p class="text-left">{{ item.description|safe }}</p>
+
+        <!-- Repositioned "Read more" button to the top-right corner -->
+        <a
+          href="{{ item.link }}"
+          target="_blank"
+          class="btn btn-primary btn-sm position-absolute"
+          style="top: 10px; right: 10px"
+          >Read more</a
+        >
+
+        <div class="mt-2 text-muted small text-left">
+          <span>Date: {{ item.pubDate }} | </span>
+          <span
+            >링크URL:
+            <a href="{{ item.originallink }}" target="_blank"
+              >{{ item.originallink }}</a
+            ></span
+          >
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Pagination controls -->
+  <div class="pagination justify-content-center mt-4">
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        {% if data.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?query={{ request.GET.query }}&page=1"
+            >&laquo; First</a
+          >
+        </li>
+        <li class="page-item">
+          <a
+            class="page-link"
+            href="?query={{ request.GET.query }}&page={{ data.previous_page_number }}"
+            >Previous</a
+          >
+        </li>
+        {% endif %}
+
+        <li class="page-item disabled">
+          <span class="page-link"
+            >Page {{ data.number }} of {{ data.paginator.num_pages }}</span
+          >
+        </li>
+
+        {% if data.has_next %}
+        <li class="page-item">
+          <a
+            class="page-link"
+            href="?query={{ request.GET.query }}&page={{ data.next_page_number }}"
+            >Next</a
+          >
+        </li>
+        <li class="page-item">
+          <a
+            class="page-link"
+            href="?query={{ request.GET.query }}&page={{ data.paginator.num_pages }}"
+            >Last &raquo;</a
+          >
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+  {% else %}
+  <!-- If there are no search results -->
+  <div class="alert alert-warning mt-5" role="alert">No results found.</div>
+  {% endif %}
+</div>
+
+{% endblock %}

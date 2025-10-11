@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- 해당 detail 페이지의 기본적인 스타일 설정 -->
+<style>
+
+    .post-header {
+        text-align: center;
+    }
+    .post-header-title {
+        font-size: 38px;
+        margin-bottom: 15px;
+
+    }
+    .post-excerpt {
+        font-size: 18px;
+    }
+    .post-body {
+        text-align: left;
+        font-size: 20px;
+    }
+    .post-body .post-body-image {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 50px;
+
+    }
+    .post-body .post-body-image img {
+        height: 560px;
+        width: 840px;
+        object-fit: cover;
+        
+    }
+    .post-body .post-body-content {
+        margin: 0 180px 0 180px;
+    }
+    .post-footer {
+        display: flex;
+        text-align: center;
+    }
+    .post-footer .download-btn {
+        margin: 0 180px 0 180px;
+    }
+    .btn-container {
+        display: flex;
+        justify-content: center; /* Center horizontally */
+        margin-top: 20px; /* Optional: add space above the button */
+    }
+    .btn-container .btn-all-more button {
+        border: 2px solid #ff9933;
+        padding: 10px 20px;
+        margin: 2rem 0;
+        background-color: white;
+        color: #000000;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    .btn-container .btn-more button {
+        border: 2px solid #007bff;
+        padding: 10px 20px;
+        margin: 2rem 0;
+        background-color: white;
+        color: #000000;
+        cursor: pointer;
+        font-size: 16px;
+        
+    }
+
+    
+
+
+</style>
+
+
+
+<div class="inner" style="margin-top: 120px">
+    
+    <div class="post-header">
+        <b class="post-header-title">{{post.title}}</b>
+        <p class="post-excerpt">{{post.excerpt}}</p>
+        <p>BY {{post.author}} &nbsp;&nbsp; <span>|</span> &nbsp;&nbsp; {{post.published_at}}</p>
+    </div>
+    <div class="post-body">
+        <div class="post-body-image">
+            <img src="{{post.featured_image.url}}" alt="기사 메인이미지">
+        </div>        
+        <div class="post-body-content"> {{post.content|safe}}</div>
+        <br />
+    </div>
+
+    <div class="post-footer">
+        <!-- 첨부파일이 있는 경우 다운로드 버튼 만들기 -->
+        <div class="download-btn" style="text-align: left;">
+            {% if post.file_upload %}
+            <span> <span style="color:#0068b7; font-weight: bold;">|</span> Download : &nbsp;</span>
+            <a href="{{post.file_upload.url}}" class="btn btn-outline-success" role="button">
+                {% if post.get_file_ext == 'csv' %}
+                <i class="material-symbols-outlined">csv</i>
+                {% elif post.get_file_ext == 'pdf' %}
+                <i class="material-symbols-outlined">picture_as_pdf</i>
+                <!-- 엑셀 및 doc파일 분기 추가이나, 구글 material icon에는 해당아이콘 없음
+                {% elif post.get_file_ext == 'xlsx' or post.get_file_ext == 'xls' %}
+                <i class="fa-regular fa-file-excel"></i>
+                {% elif post.get_file_ext == 'docx' or post.get_file_ext == 'doc' %}
+                <i class="fa-regular fa-file-doc"></i> -->
+                {% else %}
+                <i class="material-symbols-outlined">download</i>
+                {% endif %} {{post.get_file_name}}
+            </a>
+            {% endif %}
+        </div>
+        <br />
+        
+    </div>
+
+     <!-- 전체/카테고리별 목록이동 버튼 만들기(div) -->
+     <div class="btn-container">
+        <!-- 전체 목록리스트 버튼 만들기 -->
+        <a href="{% url 'blogs:list' %}" class="btn-all-more" style="float: center;">
+            <button style="border-radius: 7px; margin: 0.5rem;"><b>전체 목록</b></button>
+        </a>
+    
+        <!-- 카테고리별 목록 추가(현재 detail.html이 속해있는 카테고리 목록을 나타내도록 조건부 노출) -->
+        <a href="{% url 'blogs:category_post_list' category_name='건강' %}" class="btn-more" style="float: center;">
+            <button style="border-radius: 7px; margin: 0.5rem;"><b>건강 목록</b></button>
+        </a>
+        <a href="{% url 'blogs:category_post_list' category_name='여행' %}" class="btn-more" style="float: center;">
+            <button style="border-radius: 7px; margin: 0.5rem;"><b>여행 목록</b></button>
+        </a>
+        <a href="{% url 'blogs:category_post_list' category_name='음식' %}" class="btn-more" style="float: center;">
+            <button style="border-radius: 7px; margin: 0.5rem;"><b>음식 목록</b></button>
+        </a>
+        <a href="{% url 'blogs:category_post_list' category_name='패션-뷰티' %}" class="btn-more" style="float: center;">
+            <button style="border-radius: 7px; margin: 0.5rem;"><b>패션/뷰티 목록</b></button>
+        </a>
+        <a href="{% url 'blogs:category_post_list' category_name='그외다양한주제' %}" class="btn-more" style="float: center;">
+            <button style="border-radius: 7px; margin: 0.5rem;"><b>그외다양한주제 목록</b></button>
+        </a>
+        
+        <!-- 해당 카테고리 목록을 나타내는 버튼(작동이 안됨/개선필요 -> slug로 개선검토)
+        {% for category in post.categories.all %}
+            <a href="{% url 'blogs:category_post_list' category_name=category.slug %}" class="btn-more" style="float: center">
+                <button style="border-radius: 7px;">{{ category.name }} 목록</button>
+            </a>
+        {% endfor %} -->
+        
+    </div>
+    
+</div>
+
+{% endblock %}

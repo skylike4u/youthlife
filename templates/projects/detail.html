@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="margin-top: 120px;">
+  <div style="text-align:center; max-width: 500px; margin: 4rem auto;">
+
+    <!-- target_project의 image가 존재하면, image를 보여준다 -->
+    {% if target_project.image %}
+    <div style="display: flex; justify-content: center;" >
+      <img src="{{ target_project.image.url }}" alt="target_project_img" style="height: 12rem; width: 12rem; border-radius: 20rem; margin-bottom: 2rem; object-fit: cover;">
+    </div>
+    {% endif %}
+    
+    <h2 style="font-family: 'NanumSquareB">
+        {{target_project.title}}
+    </h2>
+
+    <h5>
+        {{target_project.description}}
+    </h5>
+  </div>
+
+<!-- 구독/비구독 버튼 관련 분기 추가필요 -->
+
+  <div>
+    <!-- 우리가 필요한게 article_list고, view단에서 작성해서 넘겨줬었던 object_list와 연결시켜서 가져와 준다. -->
+    {% include 'partials/list_fragment.html' with article_list=object_list %}
+
+  </div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,36 @@
+
+<div class="comment-container" style="display: flex; flex-direction: column; margin: 1rem 0; border: 1px solid #bbb; border-radius: 1rem; padding: 2rem;  gap: 1rem; text-align: left; background-color: #fff;">
+    <div class="comment-box">
+        <!-- target_user의 profile.image가 존재하면, image를 보여준다(보안문제) -->
+        
+        <div class="comment-header" style="display: flex; align-items: center; gap: 1rem;" >
+            {% if comment.writer.profile.image %}
+            <img src="{{ comment.writer.profile.image.url }}" alt="my_profile_image" style="height: 4rem; width: 4rem; border-radius: 50%; object-fit: cover;">
+            {% endif %}
+                    <!-- target_user의 profile이 존재하면, nickname으로 보여준다(보안문제) -->
+            <div>
+                <strong>
+                    {{ comment.writer.profile.nickname }}
+                </strong>
+                <!-- 띄어쓰기 -->
+                &nbsp&nbsp&nbsp
+                <span class="comment-date">{{ comment.created_at }}</span>
+            </div>
+            
+        </div>
+        
+
+        <div style="margin: 1rem 0;">
+            {{ comment.content }}
+        </div>
+        {% if comment.writer == user %}
+        <div style="text-align: right;">
+            <a href="{% url 'comments:delete' pk=comment.pk %}" class="btn btn-danger rounded-pill">
+                Delete
+            </a>
+            
+        </div>
+        {% endif %}
+    </div>
+    
+</div>

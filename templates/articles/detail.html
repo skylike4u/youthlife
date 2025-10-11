@@ -1,0 +1,70 @@
+<!-- {% extends 'base.html' %}
+include `comments/detail.html` 구문에 있어 base.html을 2번 가져오니까 여기는 지워준다 -->
+{% load bootstrap4 %}
+
+{% block content %}
+
+<div style="margin-top: 120px;">
+  <div class="pragmatic_header" style="text-align:left;">
+    <div class="inner">
+      <a href="{% url 'core:home' %}" class="pragmatic_logo">
+          <h3>BUSAN Youth Archive</h3>
+      </a>
+    </div>
+  </div>
+  
+  
+  <div style="text-align:center; max-width: 700px; margin: 4rem auto;">
+    <h1>
+      {{ target_article.title }}
+    </h1>
+    <div style="height: 2rem;">
+      <a href="{% url 'likes:article_like' pk=target_article.pk %}">
+        <i style="vertical-align: middle; font-size: 1.2rem; color:#f77" class="material-icons">
+          favorite
+        </i>
+      </a>
+      <span style="vertical-align: middle; font-size: 1.2rem;">
+        {{ target_article.like }}
+      </span>
+    </div>
+    <h3>
+      {{ target_article.writer.profile.nickname }}
+    </h3>
+    <hr>
+    <img style="width: 100%; border-radius: 1rem; margin: 2rem 0;" 
+    src="{{ target_article.image.url }}" alt="타켓이미지">
+  
+    <div class="text-start">
+      <!-- safe filter를 인입 (medium-editor 속성적용할때 태그는 벗기고 일반적인 컨텐츠만 나옴) -->
+      {{ target_article.content | safe }}
+    </div>
+  
+    {% if target_article.writer == user %}
+    <a href="{% url 'articles:update' pk=target_article.pk %}"
+    class="btn btn-primary rounded-pill col-3">
+      Update
+    </a>
+    <a href="{% url 'articles:delete' pk=target_article.pk %}"
+    class="btn btn-danger rounded-pill col-3">
+      Delete
+    </a>
+    {% endif %}
+    <hr>
+  
+    <!-- target_article에 foreign 키로 엮여있는 comment들을 모두 가져오겠음 -->
+    <!-- include 구문은 안에서 comment에 들어있는 내용에 접근해야 되니까 with구문을 이용해서 함께 넣어줌다 -->
+    {% for comment in target_article.comment.all %}
+      {% include 'comments/detail.html' with comment=comment %}
+    {% endfor %}
+  
+    <!-- with 구문을 이용해서 안에 있었던 article을 현재 있는 target_article과 동기화 시켜준다 -->
+     <!-- 이렇게 되면 템플릿 comments에 create.html 안에서 article이라는 변수를 사용할 수 있게 된다.  -->
+    {% include 'comments/create.html' with article=target_article %}
+  </div>
+
+</div>
+
+
+
+{% endblock %}

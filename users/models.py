@@ -9,6 +9,14 @@ class User(AbstractUser):
         MALE = ("male", "Male")
         FEMALE = ("female", "Female")
 
+    class LanguageChoices(models.TextChoices):
+        KR = ("kr", "Korean")
+        EN = ("en", "English")
+
+    class CurrencyChoices(models.TextChoices):
+        WON = ("won", "Korean Won")
+        USD = ("usd", "Dollor")
+
     # (유령필드로 만들기) AbstractUser클래스에서 있는 first_name, last_name을 쓰지않게 만듦(유령 필드로 만듦 / last-first name 한국에서는 쓰지않는 방식)
     first_name = models.CharField(
         max_length=150,
@@ -19,7 +27,8 @@ class User(AbstractUser):
         editable=False,
     )
     # blank=True는 form에서 필드가 필수적이지 않게 해줌 / Pillow 라이브러리 설치 필요
-    avatar = models.ImageField(blank=True)
+    # cloudflare 이미지를 넣을 것이기 때문에, ImageField에서 URLField로 변경
+    avatar = models.URLField(blank=True)
 
     # 새로운 name 필드 생성
     name = models.CharField(max_length=150, default="")
@@ -27,4 +36,16 @@ class User(AbstractUser):
     gender = models.CharField(
         max_length=10,
         choices=GenderChoices.choices,
+    )
+    language = models.CharField(
+        max_length=2,
+        choices=LanguageChoices.choices,
+        null=True,
+        blank=True,
+    )
+    currency = models.CharField(
+        max_length=5,
+        choices=CurrencyChoices.choices,
+        null=True,
+        blank=True,
     )

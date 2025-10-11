@@ -1,0 +1,463 @@
+/* COMMOM */
+body {
+    font-family: 'Pretendard', 'Sans-serif';
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: #333;
+   }
+a {
+    /* color: black; */
+    text-decoration: none !important; /* 밑줄 제거 */
+}
+a:hover {
+    color: #7FDBB3;
+    text-decoration: none !important; /* Removes underline */
+}
+/* 프로젝트의 모든 img 태그를 디폴트 inline요소에서 block요소로 바꾸어서 글자가 되어 불필요한 여백을 없앤다 */
+img {
+    /* img(인라인 요소) 하단에 Baseline 공백을 제거 */
+    display: block;
+}
+
+/*INNER*/
+.inner {
+    width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    overflow: auto; /* 넘치는 영역에 대해서는 표시안되도록 작성해야 함 */
+}
+
+/* Header */
+header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 9;
+    background-color: #f6f5f0;
+    border-bottom: 1px solid #c8c8c8;
+    
+}
+
+header > .inner {
+    height: 100px;
+}
+
+
+
+header .logo {
+    height: 90px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+header .sub-menu {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    display: flex;
+}
+header .sub-menu ul.menu {
+    font-family: Arial, sans-serif;
+    display: flex;
+}
+header .sub-menu ul.menu li {
+    position: relative;
+
+}
+/* 가상요소 선택자 :: - 구분선 생성 */
+header .sub-menu ul.menu li::before {
+    content: "";
+    display: block;
+    width : 1px;
+    height: 12px;
+    background-color: #e5e5e5;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+
+}
+/* 가장 왼쪽 구분선 삭제 */
+header .sub-menu ul.menu li:first-child:before {
+    display: none;
+
+}
+header .sub-menu ul.menu li a {
+    padding: 11px 16px;
+    font-size: 13px;
+    display: block;
+    color: #656565;
+}
+header .sub-menu ul.menu li a:hover {
+    color: #000;
+}
+header .sub-menu .search {
+    position: relative;
+    height: 34px;
+}
+header .sub-menu .search input {
+    width: 36px;
+    height: inherit;
+    padding: 4px 10px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 5px;
+    outline: none;
+    background-color: #fff;
+    color: #777;
+    font-size: 12px;
+    transition: width .4s;
+}
+/* imput 뒤에다가 focus라는 가상클래스 선택자 추가 */
+header .sub-menu .search input:focus {
+    width: 190px;
+    border-color: #669900;
+}
+header .sub-menu .search .marterial-icons {
+    height: 24px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 5px;
+    margin: auto;
+    transition: .4s;
+}
+header .sub-menu .search.focused .material-icons {
+    opacity: 0;
+  }
+header .main-menu {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    display: flex;
+}
+header .main-menu .item {
+
+}
+/* 메인 메뉴 */
+header .main-menu .item .item__name {
+    padding: 10px 20px 0px 20px;
+    /* font-family: Arial, sans-serif; */
+    font-size: 13px;
+}
+header .main-menu .item:hover .item__name {
+    color: #669900;
+}
+/* 메인메뉴를 hover했을 때 나타나는 컨텐츠 */
+header .main-menu .item .item__contents {
+
+}
+header .badges {
+    position: absolute;
+    top: 132px;
+    right: 12px;
+
+}
+header .badges .badge {
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    box-shadow: 4px 4px 10px rgba(0,0,0,.15);
+    cursor: pointer;
+}
+
+
+/* main section */
+.main {
+    
+	margin-top: 84px; /* 화면 이미지 고정, heigth인 100px->84px로 변경 */ 
+    /* header에 position이 fixed되어있고, height 크기만큼 margin-top: 넣어줌 */
+    background-image: url("/");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+	z-index: 1;
+}
+/* 배경 이미지에 색상을 어둡게 하기 위해, 어두운 색상으로 이미지 상위에 투명도를 주어 덮어씌움 */
+.main > .main-container {
+    width: 100%;
+	height: 100%;
+	background-color: #2f3059;
+	opacity: 0.9;
+	z-index: 2;
+	margin-top: 60px; /* position 이 fixed 일 경우, 문서 흐름에서 빠지므로, 이 부분은 margin 으로 적용 */
+}
+.main-container .title-container {
+	padding-top: 50px;
+	padding-bottom: 100px;
+}
+.title {
+	font-size: 2rem;
+	font-weight: bold;
+	color: #fff;
+	word-break: keep-all;
+	margin-bottom: 0.8rem;
+}
+.message {
+	font-size: 1.4rem;
+	font-weight: normal;
+	color: #fff;
+	line-height: 2rem;
+}
+
+.news {
+	font-size: 1.1rem;
+	font-weight: bold;
+	color: #fff6ae;
+}
+
+.news:hover {
+	cursor: pointer;
+}
+
+/* 2th section */
+.skill-container {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	padding: 1rem 0;
+}
+
+.skill {
+	width: 25%;
+	background-color: #fff;
+	display: flex;
+	align-items: center;
+	border-radius: 9px;
+	padding: 0.5rem 1rem;
+	margin: 0 1rem;
+	/* box-shadow: 블럭에 그림자를 적용하는 CSS 기능
+     https://developer.mozilla.org/ko/docs/Web/CSS/box-shadow 
+     offset-x | offset-y | blur-radius | spread-radius | color */
+	box-shadow: 10px 10px 10px -5px rgba(25, 42, 70, 0.2);
+	transition: 0.4s;
+}
+
+.skill:hover {
+	transform: translate(0, -5px);
+}
+
+.skill-icon {
+	font-size: 2.5rem;
+	margin: 0 10px;
+}
+
+.skill-title {
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+}
+
+.skill-name {
+	font-weight: bold;
+	color: #545e6f;
+	margin-bottom: 0.2rem;
+}
+
+.skill-usage {
+	font-size: 0.9rem;
+	color: #545e6f;
+}
+
+.python-style {
+	color: #2186c4;
+}
+
+.analysis-style {
+	color: #ff8066;
+}
+
+.ai-style {
+	color: #f7df1e;
+}
+
+.vue-style {
+	color: #2e7d32;
+}
+
+/* third section */
+.roadmap-container {
+	width: 100%;
+	margin-top: 2rem;
+}
+
+.roadmap-title-container {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.roadmap-title {
+	font-size: 1.3rem;
+	font-weight: bold;
+	color: #545e6f;
+}
+
+.slide-prev {
+	font-size: 2rem;
+	cursor: pointer;
+	color: rgb(47, 48, 89);
+}
+
+.slide-next {
+	font-size: 2rem;
+	cursor: pointer;
+	color: #cfd8dc;
+}
+
+.slide-prev-hover:hover {
+	transition: transform 0.5s;
+	transform: translateX(-2px);
+}
+
+.slide-next-hover:hover {
+	transition: transform 0.5s;
+	transform: translateX(2px);
+}
+
+.arrow-container {
+	display: flex;
+}
+
+.class-list {
+	display: flex;
+	list-style: none;
+	padding: 1rem 0;
+	margin: 0;
+	overflow: none; /* overflow 를 hidden 으로 설정하면, transform 시 이미지 짤림 */
+}
+
+.class-card {
+	width: 240px;
+	height: 100%; /* 라인 수에 따라 박스 높이가 다르게 표시됨을 막기 위함 */
+	/* box-shadow: 블럭에 그림자를 적용하는 CSS 기능
+     https://developer.mozilla.org/ko/docs/Web/CSS/box-shadow 
+     offset-x | offset-y | blur-radius | spread-radius | color */
+	box-shadow: 10px 10px 10px -5px rgba(25, 42, 70, 0.2);
+	border-radius: 8px;
+	margin: 0 10px;
+	transition: 0.4s;
+	/* IE11 에서는 flex 설정시, 디폴트로 flex 아이템들에 고정 너비를 무시 */
+	flex-shrink: 0;
+}
+
+.class-card:hover {
+	box-shadow: 10px 10px 10px 0px rgba(25, 42, 70, 0.2);
+	transform: translate(0, -5px);
+}
+
+.class-image {
+	/* 사이즈가 큰 이미지를 작은 블럭 내에 넣을 때 호환성을 위해 max-width/max-height 를 사용해야 함 */
+	max-width: 240px;
+
+	/* border-radius: 블럭 모서리를 둥글게 하는 CSS 기능
+     top-left | top-right | bottom-right | bottom-left */
+	border-radius: 8px 8px 0 0;
+    object-fit: cover;
+
+}
+
+.class-container {
+	width: 100%;
+	padding: 0.5rem 1rem 1rem 1rem;
+}
+
+.class-skill {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.class-type {
+	font-size: 0.9rem;
+	color: #949393;
+}
+
+.class-format {
+	font-size: 0.9rem;
+	color: #fff;
+	background-color: #0d47a1;
+	padding: 0.2rem;
+}
+
+.class-desc {
+	width: 100%;
+	margin-top: 1rem;
+	color: #545e6f;
+}
+
+.class-desc:hover {
+	color: #2186c4;
+	cursor: pointer;
+}
+
+.class-title {
+	font-size: 0.9rem;
+	font-weight: bold;
+	color: inherit;
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-bottom: 0.5rem;
+}
+
+.class-detail {
+	font-size: 0.9rem;
+	color: inherit;
+	line-height: 1.5rem;
+}
+
+.roadmap-desc {
+	display: visible;
+}
+
+li a:hover {
+	cursor: pointer;
+}
+
+
+/* (미디어쿼리) 스크린의 사이즈가 500px 이하로 떨어지면 안에 있는 태그들이 적용된다 */
+@media screen and (max-width: 500px) {
+    html {
+        font-size: 13px;
+    }
+}
+
+
+
+.pragmatic_header {
+    text-align:center;
+    margin: 2rem 0;
+}
+
+.pragmatic_header_nav {
+    margin: 0 0.5rem;
+}
+
+.pragmatic_header_navbar {
+    margin: 1rem 0;
+}
+
+.pragmatic_logo {
+    font-family: 'Lobster', cursive;
+}
+
+.pragmatic_footer_button {
+    font-size: .9rem;
+}
+
+.pragmatic_footer {
+    text-align:center;
+    margin-top: 2rem;
+}
+
+
+

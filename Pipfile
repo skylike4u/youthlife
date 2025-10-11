@@ -6,6 +6,14 @@ name = "pypi"
 [packages]
 django = "==4.2"
 pillow = "*"
+bootstrap4 = "*"
+django-bootstrap4 = "*"
+djangorestframework = "*"
+pyjwt = "*"
+django-environ = "*"
+openpyxl = "*"
+requests = "*"
+bs4 = "*"
 
 [dev-packages]
 

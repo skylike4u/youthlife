@@ -1,0 +1,287 @@
+{% extends 'base.html' %}
+
+<!-- Main_menu: Lifestyle -->
+{% block content %}
+
+
+<!-- 해당 리스트페이지의 기본적인 스타일 설정 -->
+<style>
+
+    .main-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 601px;
+        width: 1200px;
+        background-color: rgb(245, 246, 248);
+        margin-bottom: 10px;
+        
+    }
+    .main-container .main-content {
+        height: 476px;
+	    width: 600px;
+        padding: 56px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+
+    }
+    .main-container .main-image{
+        height: 601px;
+        width: 600px;
+        object-fit: cover;
+    }
+    .container {
+        margin-bottom: 50px;
+    }
+    .container .content {
+        display: flex;
+        text-align: center;
+    }
+    .container .content .content-box img {
+        height: 285px;
+	    width: 285px;
+        object-fit: cover;
+    }
+    a {
+        color: black !important; /* 링크 텍스트를 검은색으로 변경 */
+        text-decoration: none !important; /* 밑줄 제거 */
+      }
+    a:hover {
+        color: black !important; /* 마우스를 올려도 색상 유지 */
+        text-decoration: none !important; /* 마우스를 올려도 밑줄 유지 안함 */
+      }
+    /* Style for the button */
+    .main-content .btn-ghost {
+        font-size: 18px;
+        font-weight: bold;
+        color: #007bff;
+        background-color: transparent;
+        border: 2px solid #007bff;
+        border-radius: 5px;
+        padding: 10px 20px;
+        text-align: center;
+        transition: all 0.3s ease;
+        position: absolute;
+        bottom: 0;
+        right: 0; /* Align the button to the bottom-right */
+        margin-bottom: 10px;
+    }
+
+    .main-content .btn-ghost:hover {
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+    }
+
+
+     /* Text content styling */
+     .main-content .text-content {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        position: relative;
+    }
+
+    .main-content .text-content p {
+        margin-bottom: 20px;
+    }
+
+    /* Align the "By Editors" text to the bottom-left */
+    .main-content .text-content a + p {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        margin-bottom: 10px;
+    }
+
+</style>
+
+
+
+
+<div class="inner" style="margin-top: 120px;">
+
+    <!-- 메인 표지 포스트 -->
+    <div class="main-container">
+        <div class="main-content">
+            <div class="text-content">                
+                <strong style="font-size: 48px;">오늘 당신의 하루는 <br/>어떠셨나요?  </strong> <br/>
+                <br />
+                <p style="font-size: 18px;">
+                    지금 이 순간을 소중히 여기세요. 과거는 바꿀 수 없고, 미래는 허상일 뿐입니다. 첫 시작은 언제나 어렵지만 꾸준함이 결국은 달콤한 열매로 돌아올겁니다.
+                </p>
+                <p style="font-size: 11px;">BY Editors</p>
+
+                {% if user.is_authenticated %}
+                <a href="{% url 'blogs:create' %}" class="btn-ghost" target="_blank">글 쓰기</a>
+                {% else %}
+                <a href="{% url 'users:login' %}" class="btn-ghost" target="_blank">Log in</a>
+                {% endif %}
+
+            </div>
+        </div>
+        <div class="main-image">
+            <a href="#" target="_blank">
+                <img src="https://picsum.photos/600/601" alt="메인표지 이미지">
+            </a>
+        </div>
+    </div>
+    
+    <!-- BLOG 헬스 카테고리 -->
+    <div class="container">
+        <div class="category">
+            <a href="{% url 'core:home' %}" style="text-decoration: none; color: black;">
+                <h3 style="font-size: 44px;">
+                    <span style="color: red;">|</span>건강</h3>
+            </a>
+            <span>The Best Picks From Our exports</span>
+            <a href="{% url 'blogs:category_post_list' category_name='건강' %}" class="btn-more" style="float: right">
+               << 더 보기
+            </a>
+        </div>
+        <div class="content">
+            {% if health_posts_4pcs %}
+                {% for post in health_posts_4pcs %}
+                <a href="{% url 'blogs:detail' pk=post.pk %}" target="_self" >
+                    <div>
+                        <div class="content-box" style="margin: 10px 10px;">
+                            <img src="{{post.featured_image.url}}" alt="이미지">
+                        </div>
+                            <strong style="font-size: 20px;">{{post.title|truncatechars:20}}</strong> <br/>
+                            <span style="font-size: 12px;">BY {{post.author |upper}}</span>
+                    </div>
+                </a>    
+                
+                {% endfor %}
+            {% endif %}
+        </div>        
+    </div>
+
+    <!-- blog 여행 카테고리 -->
+    <div class="container">
+        <div class="category">
+            <a href="{% url 'core:home' %}" style="text-decoration: none; color: black;">
+                <h3 style="font-size: 44px;">
+                    <span style="color: red;">|</span>여행</h3>
+            </a>
+            <span>부산사람들이 사랑하는 여행지/핫플레이스</span>
+            <a href="{% url 'blogs:category_post_list' category_name='여행' %}" class="btn-more" style="float: right">
+                << 더 보기
+            </a>
+        </div>
+        <div class="content">
+            {% if travel_posts_4pcs %}
+                {% for post in travel_posts_4pcs %}
+                <a href="{% url 'blogs:detail' pk=post.pk %}" target="_self" >
+                    <div>
+                        <div class="content-box" style="margin: 10px 10px;">
+                            <img src="{{post.featured_image.url}}" alt="이미지">
+                        </div>
+                            <strong style="font-size: 20px;">{{post.title|truncatechars:20}}</strong> <br/>
+                            <span style="font-size: 12px;">BY {{post.author |upper}}</span>
+                    </div>
+                </a>    
+                
+                {% endfor %}
+            {% endif %}
+        </div>         
+    </div>
+
+    <!-- blog 음식 카테고리 -->
+    <div class="container">
+        <div class="category">
+            <a href="{% url 'core:home' %}" style="text-decoration: none; color: black;">
+                <h3 style="font-size: 44px;">
+                    <span style="color: red;">|</span>FOOD&BEVERAGY</h3>
+            </a>
+            <span>부산사람들이 사랑하는 먹거리 정보</span>
+            <a href="{% url 'blogs:category_post_list' category_name='음식' %}" class="btn-more" style="float: right">
+                << 더 보기
+            </a>
+        </div>
+        <div class="content">
+            {% if food_beverage_posts_4pcs %}
+                {% for post in food_beverage_posts_4pcs %}
+                <a href="{% url 'blogs:detail' pk=post.pk %}" target="_self" >
+                    <div>
+                        <div class="content-box" style="margin: 10px 10px;">
+                            <img src="{{post.featured_image.url}}" alt="이미지">
+                        </div>
+                            <strong style="font-size: 20px;">{{post.title|truncatechars:20}}</strong> <br/>
+                            <span style="font-size: 12px;">BY {{post.author |upper}}</span>
+                    </div>
+                </a>    
+                
+                {% endfor %}
+            {% endif %}
+        </div>      
+    </div>
+
+    <!-- blog 패션/뷰티 카테고리 -->
+    <div class="container">
+        <div class="category">
+            <a href="{% url 'core:home' %}" style="text-decoration: none; color: black;">
+                <h3 style="font-size: 44px;">
+                    <span style="color: red;">|</span>FASHION&BEAUTY</h3>
+            </a>
+            <span>전세계 사람들이 사랑하는 패션/뷰티 정보</span>
+            <a href="{% url 'blogs:category_post_list' category_name='패션-뷰티' %}" class="btn-more" style="float: right">
+                << 더 보기
+            </a>
+        </div>
+        <div class="content">
+            {% if fashion_beauty_posts_4pcs %}
+                {% for post in fashion_beauty_posts_4pcs %}
+                <a href="{% url 'blogs:detail' pk=post.pk %}" target="_self" >
+                    <div>
+                        <div class="content-box" style="margin: 10px 10px;">
+                            <img src="{{post.featured_image.url}}" alt="이미지">
+                        </div>
+                            <strong style="font-size: 20px;">{{post.title|truncatechars:20}}</strong> <br/>
+                            <span style="font-size: 12px;">BY {{post.author |upper}}</span>
+                    </div>
+                </a>    
+                
+                {% endfor %}
+            {% endif %}
+        </div>        
+    </div>
+
+    <!-- blog 그외(잡) 카테고리 -->
+    <div class="container">
+        <div class="category">
+            <a href="{% url 'core:home' %}" style="text-decoration: none; color: black;">
+                <h3 style="font-size: 44px;">
+                    <span style="color: red;">|</span>MISCELLANEOUS</h3>
+            </a>
+            <span>한국 사람들이 흥미로워하는 다양한 정보</span>
+            <a href="{% url 'blogs:category_post_list' category_name='그외다양한주제' %}" class="btn-more" style="float: right">
+                << 더 보기
+            </a>
+        </div>
+        <div class="content">
+            {% if miscellaneous_posts_4pcs %}
+                {% for post in miscellaneous_posts_4pcs %}
+                <a href="{% url 'blogs:detail' pk=post.pk %}" target="_self" >
+                    <div>
+                        <div class="content-box" style="margin: 10px 10px;">
+                            <img src="{{post.featured_image.url}}" alt="이미지">
+                        </div>
+                            <strong style="font-size: 20px;">{{post.title|truncatechars:20}}</strong> <br/>
+                            <span style="font-size: 12px;">BY {{post.author |upper}}</span>
+                    </div>
+                </a>    
+                
+                {% endfor %}
+            {% endif %}
+        </div>        
+    </div>
+    
+
+</div>
+
+
+{% endblock %}

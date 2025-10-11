@@ -12,6 +12,6 @@ class CommonModel(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     # 이 문구 사용하면 Django가 이 model을 봐도 이걸 데이터베이스에 저장하지 않음
-    # abstract응 니 model이 데이터베이스에서 실제 데이터로 사용되지 않을거란 뜻
+    # abstract은 니 model이 데이터베이스에서 실제 데이터로 사용되지 않을거란 뜻
     class Meta:
         abstract = True
