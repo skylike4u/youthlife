@@ -10,3 +10,8 @@ class AccountUpdateForm(UserCreationForm):
 
         # username칸을 비활성화 시켜줌
         self.fields["username"].disabled = True
+
+
+# 회원가입 정보 확장 / UserCreationForm을 상속받아서 커스터마이징함
+class UserSignUpForm(UserCreationForm):
+    pass

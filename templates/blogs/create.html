@@ -1,148 +1,159 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 <!-- {% load bootstrap4 %} -->
 
 {% block content %}
 
 <!-- medium-edior CDN링크삽입 -->
 <script src="//cdn.jsdelivr.net/npm/medium-editor@5.23.2/dist/js/medium-editor.min.js"></script>
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@5.23.2/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+<link
+  rel="stylesheet"
+  href="//cdn.jsdelivr.net/npm/medium-editor@5.23.2/dist/css/medium-editor.min.css"
+  type="text/css"
+  media="screen"
+  charset="utf-8"
+/>
 
- <!-- form 스타일링  -->
+<!-- form 스타일링  -->
 <style>
   /* Styling the form */
-    .form-group {
-      margin-bottom: 15px;
+  .form-group {
+    margin-bottom: 15px;
   }
   .form-group label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 5px;
-      color: #333;
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
   }
   .form-control {
-      width: 100%;
-      padding: 10px;
-      font-size: 16px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
   }
   .form-control:focus {
-      border-color: #007bff;
-      outline: none;
-      box-shadow: 0 0 5px rgba(0,123,255,0.3);
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
   }
   .checkbox-group {
-      display: flex;
-      flex-direction: column;
-      padding: 5px 0;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 0;
   }
   .form-textarea {
-      min-height: 120px;
-      resize: vertical;
+    min-height: 120px;
+    resize: vertical;
   }
   .btn-submit {
-      background-color: #007bff;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.3s;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
   }
   .btn-submit:hover {
-      background-color: #0056b3;
+    background-color: #0056b3;
   }
   .text-danger {
-      color: red;
-      font-size: 14px;
+    color: red;
+    font-size: 14px;
   }
-
 </style>
 
-<div style="margin-top: 120px;">
-  <div style="text-align:left; max-width: 500px; margin: 4rem auto;">
+<div style="margin-top: 120px">
+  <div style="text-align: left; max-width: 500px; margin: 4rem auto">
     <!-- mb 는 margin-bottom으로, mb-4는 기존 bottom 크기의 4배 키운다는 말 -->
-    <div class="mb-4" style="text-align: center;">
-        <h2><span style="color:#0056b3">&#128395;</span> Create your story</h2>
+    <div class="mb-4" style="text-align: center">
+      <h2><span style="color: #0056b3">&#128395;</span> Create your story</h2>
     </div>
-    <form action="{% url 'blogs:create' %}" method="post" enctype="multipart/form-data" style="width: 100%; max-width: 600px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+    <form
+      action="{% url 'blogs:create' %}"
+      method="post"
+      enctype="multipart/form-data"
+      style="
+        width: 100%;
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      "
+    >
       {% csrf_token %}
       <!-- {{form}} -->
-      
-      
+
       <!-- bootstrap 라이브러리를 사용할때 자동렌더링 코드(카테고리 필드 문제 있어 미사용) -->
       <!-- {% bootstrap_form form %}   -->
 
-
       <!-- 템플릿에서 양식 필드를 명시적으로 렌더링하는 경우(참고) -->
-          <!-- Title Field -->
+      <!-- Title Field -->
       <div class="form-group">
         <label for="id_title">{{ form.title.label }}</label>
-          {{ form.title }}
-          {% if form.title.errors %}
-              <div class="text-danger">{{ form.title.errors }}</div>
-          {% endif %}
+        {{ form.title }} {% if form.title.errors %}
+        <div class="text-danger">{{ form.title.errors }}</div>
+        {% endif %}
       </div>
-      
+
       <!-- Excerpt Field -->
       <div class="form-group">
-          <label for="id_excerpt">{{ form.excerpt.label }}</label>
-          {{ form.excerpt }}
-          {% if form.excerpt.errors %}
-              <div class="text-danger">{{ form.excerpt.errors }}</div>
-          {% endif %}
+        <label for="id_excerpt">{{ form.excerpt.label }}</label>
+        {{ form.excerpt }} {% if form.excerpt.errors %}
+        <div class="text-danger">{{ form.excerpt.errors }}</div>
+        {% endif %}
       </div>
 
       <!-- Categories Field -->
       <div class="form-group">
         <label for="id_categories">{{ form.categories.label }}</label>
-        <div class="checkbox-group">
-            {{ form.categories }}
-      </div>
+        <div class="checkbox-group">{{ form.categories }}</div>
         {% if form.categories.errors %}
-            <div class="text-danger">{{ form.categories.errors }}</div>
+        <div class="text-danger">{{ form.categories.errors }}</div>
         {% endif %}
-    </div>
+      </div>
 
       <!-- Featured Image Field -->
       <div class="form-group">
         <label for="id_featured_image">{{ form.featured_image.label }}</label>
-        {{ form.featured_image }}
-        {% if form.featured_image.errors %}
-            <div class="text-danger">{{ form.featured_image.errors }}</div>
+        {{ form.featured_image }} {% if form.featured_image.errors %}
+        <div class="text-danger">{{ form.featured_image.errors }}</div>
         {% endif %}
-    </div>
-      
+      </div>
+
       <!-- Content Field -->
       <div class="form-group">
-          <label for="id_content">{{ form.content.label }}</label>
-          {{ form.content }}
-          {% if form.content.errors %}
-              <div class="text-danger">{{ form.content.errors }}</div>
-          {% endif %}
+        <label for="id_content">{{ form.content.label }}</label>
+        {{ form.content }} {% if form.content.errors %}
+        <div class="text-danger">{{ form.content.errors }}</div>
+        {% endif %}
       </div>
-      
-
 
       <!-- File Upload Field -->
       <div class="form-group">
-          <label for="id_file_upload">{{ form.file_upload.label }}</label>
-          {{ form.file_upload }}
-          {% if form.file_upload.errors %}
-              <div class="text-danger">{{ form.file_upload.errors }}</div>
-          {% endif %}
+        <label for="id_file_upload">{{ form.file_upload.label }}</label>
+        {{ form.file_upload }} {% if form.file_upload.errors %}
+        <div class="text-danger">{{ form.file_upload.errors }}</div>
+        {% endif %}
       </div>
-      <div style="text-align:center;">
-        <input  type="submit" class="btn btn-dark rounded-pill col-6 mt-3" value="글 올리기(Posting)" />
+      <div style="text-align: center">
+        <input
+          type="submit"
+          class="btn btn-dark rounded-pill col-6 mt-3"
+          value="글 올리기(Posting)"
+        />
       </div>
-      
     </form>
   </div>
-</div>  
-
+</div>
 
 <!-- medium-editor를 선언하는 부분을 넣어준다 -->
-<script>var editor = new MediumEditor('.editable');</script>
-  
+<script>
+  var editor = new MediumEditor(".editable");
+</script>
+
 {% endblock %}
