@@ -25,7 +25,7 @@
         </div>
         {% if comment.writer == user %}
         <div style="text-align: right;">
-            <a href="{% url 'comments:delete' pk=comment.pk %}" class="btn btn-danger rounded-pill">
+            <a href="{% url 'comments:article_delete' pk=comment.pk %}" class="btn btn-danger rounded-pill">
                 Delete
             </a>
             

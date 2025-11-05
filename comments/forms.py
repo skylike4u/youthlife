@@ -1,9 +1,14 @@
 from django.forms import ModelForm
+from comments.models import ArticleComment, PostComment
 
-from comments.models import Comment
 
-
-class CommentCreationForm(ModelForm):
+class ArticleCommentCreationForm(ModelForm):
     class Meta:
-        model = Comment
+        model = ArticleComment
+        fields = ["content"]
+
+
+class PostCommentCreationForm(ModelForm):
+    class Meta:
+        model = PostComment
         fields = ["content"]

@@ -1,7 +1,5 @@
-# from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.shortcuts import render
 from django.views.generic import (
     CreateView,
     DetailView,
@@ -16,6 +14,7 @@ from blogs.decorators import post_ownership_required
 
 from .models import Post
 from .forms import PostCreationForm
+from comments.forms import PostCommentCreationForm
 
 
 class PostListView(ListView):
@@ -64,14 +63,21 @@ class CategoryPostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
-    context_object_namae = "post"
+    context_object_name = "target_post"
     template_name = "blogs/detail.html"
 
-    # 이 get_context_data 부분은 검증안된 메소드임(쓰임이 있을 지 모르겠음)
+    # 상세 페이지 뷰에서 “댓글 작성 폼”을 명시적으로 주입
     def get_context_data(self, **kwargs):
-        context = super(PostDetailView, self).get_context_data(**kwargs)
-        context["category_name"] = self.kwargs.get("category_name")
+        context = super().get_context_data(**kwargs)
+        context["comment_form"] = PostCommentCreationForm()  # ← 폼 인스턴스 주입
         return context
+
+    # 이 메소드는 쓰임이 아직 확인이 안됨
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+        print(context["object"])
+        return self.render_to_response(context)
 
 
 # 게시글 작성할때는 로그인이 되어 있어야 함(데코레이터 사용)
@@ -115,5 +121,11 @@ class PostUpdateView(UpdateView):
         return reverse("blogs:detail", kwargs={"pk": self.object.pk})
 
 
+# 이 customized 메소드 데코레이션은 주인이 맞는 지 확인하는 과정(데코레이터 사용)
+@method_decorator(post_ownership_required, "get")
+@method_decorator(post_ownership_required, "post")
 class PostDeleteView(DeleteView):
-    pass
+    model = Post
+    context_object_name = "target_post"
+    success_url = reverse_lazy("blogs:list")
+    template_name = "blogs/delete.html"

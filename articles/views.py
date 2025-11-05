@@ -1,4 +1,3 @@
-# from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import (
@@ -14,7 +13,7 @@ from django.views.generic.edit import FormMixin
 from articles.decorators import article_ownership_required
 
 from articles.forms import ArticleCreationForm
-from comments.forms import CommentCreationForm
+from comments.forms import ArticleCommentCreationForm
 from .forms import ArticleCreationForm
 from articles.models import Article
 
@@ -41,7 +40,7 @@ class ArticleCreateView(CreateView):
 
 class ArticleDetailView(DetailView, FormMixin):
     model = Article
-    form_class = CommentCreationForm
+    form_class = ArticleCommentCreationForm
     context_object_name = "target_article"
     template_name = "articles/detail.html"
 

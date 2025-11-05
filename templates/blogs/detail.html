@@ -63,37 +63,65 @@
 
 <div class="inner" style="margin-top: 120px">
   <div class="post-header">
-    <b class="post-header-title">{{post.title}}</b>
-    <p class="post-excerpt">{{post.excerpt}}</p>
+    <b class="post-header-title">{{target_post.title}}</b>
+    <p class="post-excerpt">{{target_post.excerpt}}</p>
     <p>
-      BY {{post.author}} &nbsp;&nbsp; <span>|</span> &nbsp;&nbsp;
-      {{post.published_at}}
+      BY {{target_post.author}} &nbsp;&nbsp; <span>|</span> &nbsp;&nbsp;
+      {{target_post.published_at}}
     </p>
   </div>
   <div class="post-body">
     <div class="post-body-image">
-      <img src="{{post.featured_image.url}}" alt="기사 메인이미지" />
+      <img src="{{target_post.featured_image.url}}" alt="기사 메인이미지" />
     </div>
-    <div class="post-body-content">{{post.content|safe}}</div>
+    <!-- safe filter를 인입 (medium-editor 속성적용할때 태그는 벗기고 일반적인 컨텐츠만 나옴) -->
+    <div class="post-body-content">{{target_post.content|safe}}</div>
     <br />
   </div>
+  
+  {% if target_post.author == user %}
+  <div style="text-align:center; margin-bottom : 2rem;">
+    <a href="{% url 'blogs:update' pk=target_post.pk %}" class="btn btn-primary rounded-pill col-3">
+      Update
+    </a>
+    <a href="{% url 'blogs:delete' pk=target_post.pk %}" class="btn btn-danger rounded-pill col-3">
+      Delete
+    </a>
+  </div>
+  
+  {% endif %}
+
+  <hr />
+  <!-- 댓글(comments) 추가작업중(아래) - 미완성 -->
+
+  <!-- target_article에 foreign 키로 엮여있는 comment들을 모두 가져오겠음 -->
+  <!-- include 구문은 안에서 comment에 들어있는 내용에 접근해야 되니까 with구문을 이용해서 함께 넣어줌다 -->
+  {% for comment in target_post.post_comments.all %}
+    {% include 'comments/post_detail.html' with comment=comment %} 
+  {% endfor %}
+
+  <!-- with 구문을 이용해서 안에 있었던 post를 현재 있는 target_post과 동기화 시켜준다 -->
+  <!-- 이렇게 되면 템플릿 comments에 post_create.html 안에서 post라는 변수를 사용할 수 있게 된다.  -->
+  <!-- PostDetailView에서 이미 context['comment_form'] = PostCommentCreationForm() 으로 폼을 넣음 -->
+  {% include 'comments/post_create.html' with post=target_post form=comment_form %}
+
 
   <div class="post-footer">
     <!-- 첨부파일이 있는 경우 다운로드 버튼 만들기 -->
     <div class="download-btn" style="text-align: left">
-      {% if post.file_upload %}
+      {% if target_post.file_upload %}
       <span>
         <span style="color: #0068b7; font-weight: bold">|</span> Download :
         &nbsp;</span
       >
       <a
-        href="{{post.file_upload.url}}"
+        href="{{target_post.file_upload.url}}"
         class="btn btn-outline-success"
         role="button"
       >
-        {% if post.get_file_ext == 'csv' %}
+        {% if target_post.get_file_ext == 'csv' %}
         <i class="material-symbols-outlined">csv</i>
-        {% elif post.get_file_ext == 'pdf' %}
+        {% elif target_post.get_file_ext == 'pdf' %}
         <i class="material-symbols-outlined">picture_as_pdf</i>
         <!-- 엑셀 및 doc파일 분기 추가이나, 구글 material icon에는 해당아이콘 없음
                 {% elif post.get_file_ext == 'xlsx' or post.get_file_ext == 'xls' %}
@@ -102,7 +130,7 @@
                 <i class="fa-regular fa-file-doc"></i> -->
         {% else %}
         <i class="material-symbols-outlined">download</i>
-        {% endif %} {{post.get_file_name}}
+        {% endif %} {{target_post.get_file_name}}
       </a>
       {% endif %}
     </div>

@@ -8,7 +8,7 @@
     <div class="mb-4">
       <h4>Delete Comment : {{ target_comment.content }}</h4>
     </div>
-    <form action="{% url 'comments:delete' pk=target_comment.pk %}" method="post">
+    <form action="{% url 'comments:post_delete' pk=target_comment.pk %}" method="post">
       {% csrf_token %}
       <input type="submit" class="btn btn-danger rounded-pill col-6 mt-3" value="POST" />
     </form>
