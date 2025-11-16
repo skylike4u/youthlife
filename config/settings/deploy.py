@@ -19,7 +19,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env("SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING: don't run with debugDJANGO_SETTINGS_MODULE turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
@@ -28,7 +28,7 @@ ALLOWED_HOSTS = ["*"]
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 # docker에서 HOST 의 경우, 컨테이너의 이름을 통해서(도메인을 통해서) 통신을 하기때문에, mariadb의 컨테이너 이름을 여기에 적어 줘야 된다.
-#  mariadb의 port는 3306을 사용한다 (mysql도 동일)
+# mariadb의 port는 3306을 사용한다 (mysql도 동일)
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",

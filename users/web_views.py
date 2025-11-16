@@ -11,7 +11,7 @@ from django.views.generic import (
     FormView,
 )
 from django.views.generic.list import MultipleObjectMixin
-from django.contrib.auth.forms import UserCreationForm
+from .forms import CustomUserCreationForm  # ✅ 여기!
 from .models import User
 from . import models, forms
 
@@ -27,7 +27,7 @@ class UserCreateView(CreateView):
     # custumizing User를 사용
     model = User
     # 장고의 기본제공 UserCreationForm 사용(확인필요: 커스터마이징 해야되지 않나??)
-    form_class = UserCreationForm
+    form_class = CustomUserCreationForm
     success_url = reverse_lazy("core:home")
     template_name = "users/create_user.html"
 
